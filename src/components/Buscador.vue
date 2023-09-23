@@ -22,12 +22,12 @@
         class="w-full rounded bg-white border border-gray-300 px-4 py-2 space-y-1 absolute z-10"
       >
         <li class="px-1 pt-1 pb-2 font-bold border-b border-gray-200">
-          Showing {{ searchPokemons.length }} of {{ pokemons.length }} results
+          Showing {{ searchPokemons.length }} of 649 results
         </li>
         <li
             v-for="pokemon in searchPokemons"
             :key="pokemon.name"
-            @click="selectPokemon(pokemon.name);"
+            @click="selectPokemon(pokemon.name,pokemon.url);"
             class="cursor-pointer hover:bg-gray-100 p-1"
         >
           {{ pokemon.name }}
@@ -41,8 +41,9 @@
 import {ref, computed} from 'vue'
 import { useStore } from 'vuex';
 // URL de la API que deseas consultar
-const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0';
+const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=649&offset=0';
 let pokemons = [];
+let cantidad = 0;
 // Realizar una solicitud GET a la API utilizando fetch
 fetch(apiUrl)
   .then(response => {
@@ -59,6 +60,7 @@ fetch(apiUrl)
 
     // Si necesitas almacenar los datos en una variable:
     pokemons = data.results; // Suponiendo que la respuesta es un array
+    cantidad = pokemons.length
     console.log(pokemons);
   })
   .catch(error => {
@@ -86,11 +88,13 @@ export default {
       })
     });
 
-    const selectPokemon = (pokemon) => {
+    const selectPokemon = (pokemon,url) => {
       selectedPokemon.value = pokemon
       searchTerm.value = ''
       store.commit('showModal');
       store.commit('setPokemonName',pokemon)
+      store.commit('setPokemonUrl',url)
+      store.commit('getPokemonData')
     }
 
     let selectedPokemon = ref('')

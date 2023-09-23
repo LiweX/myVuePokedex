@@ -12,8 +12,9 @@ const isShowModal = ref(false);
 // }
 
 function closeModal() {
-  store.commit('closeModal');
-  isShowModal.value = false;
+    store.commit('clearData');
+    store.commit('closeModal');
+    isShowModal.value = false;
 }
 
 function capitalizeFirstLetter(str) {
@@ -29,12 +30,34 @@ function capitalizeFirstLetter(str) {
         </div>
       </template>
       <template #body>
-        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-          With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-        </p>
-        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-          The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-        </p>
+        <div class="flex">
+            <!-- Mitad Izquierda -->
+            <div class="w-1/2 p-4">
+            <!-- Contenido de la mitad izquierda -->
+            <img :src=store.state.imgUrl alt="Pokemon image" width="350" height="100"/>
+            </div>
+            
+            <!-- Mitad Derecha -->
+            <div class="w-1/2 p-4">
+            <div class="h-1/2 flex flex-col justify-center items-center">
+                <!-- Parte Superior de la Mitad Derecha -->
+                <div>Stats:</div>
+                <div>HP: {{store.state.stats.hp}}</div>
+                <div>Attack: {{store.state.stats.atk}}</div>
+                <div>Defense: {{store.state.stats.def}}</div>
+                <div>HP: {{store.state.stats.spd}}</div>
+                <div>Height: {{store.state.stats.h}} Dm</div>
+                <div>Weght: {{store.state.stats.w}} Hg</div>
+            </div>
+            <div class="h-1/2 flex flex-col justify-center items-center">
+                <!-- Parte Inferior de la Mitad Derecha -->
+                <div>Abilities:</div>
+                <div v-for="(elemento, index) in store.state.abilities" :key="index">
+                    {{ elemento.name }}
+                </div>
+            </div>
+            </div>
+        </div>
       </template>
       <template #footer>
         <div class="flex float-right">
