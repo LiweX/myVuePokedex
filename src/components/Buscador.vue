@@ -1,4 +1,5 @@
 <template>
+  <Modal persistent />
   <div class="min-w-screen min-h-screen flex justify-center items-center">
     <div class="max-w-xs relative space-y-3">
       <label
@@ -26,27 +27,19 @@
         <li
             v-for="pokemon in searchPokemons"
             :key="pokemon.name"
-            @click="selectPokemon(pokemon.name)"
+            @click="selectPokemon(pokemon.name);"
             class="cursor-pointer hover:bg-gray-100 p-1"
         >
           {{ pokemon.name }}
         </li>
       </ul>
-
-      <p
-        v-if="selectedPokemon"
-        class="text-lg pt-2 absolute"
-      >
-        You have selected: <span class="font-semibold">{{ selectedPokemon }}</span>
-      </p>
     </div>
   </div>
 </template>
 
 <script>
-
 import {ref, computed} from 'vue'
-
+import { useStore } from 'vuex';
 // URL de la API que deseas consultar
 const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0';
 let pokemons = [];
@@ -75,8 +68,9 @@ fetch(apiUrl)
 
 export default {
   setup() {
+    const store = useStore();
     let searchTerm = ref('')
-
+    
     const searchPokemons = computed(() => {
       if (searchTerm.value === '') {
         return []
@@ -95,6 +89,8 @@ export default {
     const selectPokemon = (pokemon) => {
       selectedPokemon.value = pokemon
       searchTerm.value = ''
+      store.commit('showModal');
+      store.commit('setPokemonName',pokemon)
     }
 
     let selectedPokemon = ref('')

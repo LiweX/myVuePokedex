@@ -1,12 +1,14 @@
 <script setup>
 import Buscador from './components/Buscador.vue';
 import Titulo from './components/Titulo.vue';
+import FichaPokemon from './components/FichaPokemon.vue';
 </script>
 
 <template>
     <Titulo
     image-src="myVuePokedex.png"
     ></Titulo>
+    <FichaPokemon></FichaPokemon>
     <Buscador></Buscador>
 
   
