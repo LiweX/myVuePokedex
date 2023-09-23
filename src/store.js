@@ -15,8 +15,5 @@ export default createStore({
     setPokemonName(state, newName){
         state.pokemonName = newName;
     }
-    getPokemonData(state){
-        
-    }
   },
 });
