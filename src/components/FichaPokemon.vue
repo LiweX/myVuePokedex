@@ -45,7 +45,7 @@ function capitalizeFirstLetter(str) {
                 <div>HP: {{store.state.stats.hp}}</div>
                 <div>Attack: {{store.state.stats.atk}}</div>
                 <div>Defense: {{store.state.stats.def}}</div>
-                <div>HP: {{store.state.stats.spd}}</div>
+                <div>Speed: {{store.state.stats.spd}}</div>
                 <div>Height: {{store.state.stats.h}} Dm</div>
                 <div>Weght: {{store.state.stats.w}} Hg</div>
             </div>
